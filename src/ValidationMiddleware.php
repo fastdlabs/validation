@@ -28,10 +28,10 @@ class ValidationMiddleware extends Middleware
         try {
             return $next->process($request);
         } catch (ValidationException $exception) {
-            return call_user_func(
+            return json(call_user_func(
                 config()->get('exception.response'),
                 $exception
-            );
+            ), 422);
         } catch (\Exception $e) {
             throw $e;
         }
